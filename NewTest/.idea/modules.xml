@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../hotel management/HotelMaster.iml" filepath="$PROJECT_DIR$/../hotel management/HotelMaster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NewTest.iml" filepath="$PROJECT_DIR$/NewTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SharePlateForm/SharePlateForm.iml" filepath="$PROJECT_DIR$/../SharePlateForm/SharePlateForm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../hotel management/WebRoot/public/scripts/extjs/air/samples/tasks/Simple Tasks v2.iml" filepath="$PROJECT_DIR$/../hotel management/WebRoot/public/scripts/extjs/air/samples/tasks/Simple Tasks v2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SimpleCMS/SimpleCMS.iml" filepath="$PROJECT_DIR$/../SimpleCMS/SimpleCMS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ext4-crud-mvc-master/ext4-crud-mvc.iml" filepath="$PROJECT_DIR$/../ext4-crud-mvc-master/ext4-crud-mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ext4_manager_3.0/ext4_manager_3.0.iml" filepath="$PROJECT_DIR$/../ext4_manager_3.0/ext4_manager_3.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ext4_manager_3.0 2/ext4_manager_3.0.iml" filepath="$PROJECT_DIR$/../ext4_manager_3.0 2/ext4_manager_3.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ext4_manager_3.0 2/ext4_manager_3.0.iml" filepath="$PROJECT_DIR$/../ext4_manager_3.0 2/ext4_manager_3.0.iml" />
+    </modules>
+  </component>
+</project>
+

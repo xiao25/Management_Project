@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="Student.model.Student" table="student">
+        <id name="id" column="Id" type="int">
+            <generator class="native"></generator>
+        </id>
+
+        <property name="stuname" column="Name" type="string"/>
+        <property name="stunum" column="NUM" type="string"/>
+        <property name="sex" column="Sex" type="string"/>
+
+        <property name="birthday" column="Bir" type="date"/>
+        <property name="classnum" column="Classname" type="string"/>
+        <property name="address" column="Adr" type="string"/>
+        <property name="remark" column="Remarks" type="string"/>
+        <property name="phone" column="Phone" type="string"/>
+
+
+    </class>
+
+
+    <class name="C.model.Course" table="courses">
+        <id name="id" column="id" type="string">
+            <generator class="assigned"></generator>
+        </id>
+
+        <property name="kcm" column="Kcm" type="string"/>
+
+        <property name="ach" column="Ach" type="integer"/>
+
+        <property name="remarks" column="Remarks" type="string"/>
+
+    </class>
+
+
+    <class name="Grade.model.Grade" table="grade">
+        <id name="id" column="Id_grd" type="int">
+            <generator class="native"></generator>
+        </id>
+
+
+        <property name="ach" column="ach" type="integer"/>
+
+        <join table="GradeStudent" optional="true">
+            <key column="Id_grd" unique='true'/>
+            <many-to-one name="student" column="id" lazy="false"
+                         not-null="true" class="Student.model.Student"/>
+
+        </join>
+
+        <join table="GradeCourse" optional="true">
+            <key column="Id_grd" unique='true'/>
+            <many-to-one name="course" column="Id"  lazy="false"
+                         not-null="true" class="C.model.Course"/>
+
+        </join>
+        <!--<many-to-one name="course" column="Kch" class="C.model.Course" />-->
+
+    </class>
+
+
+</hibernate-mapping>

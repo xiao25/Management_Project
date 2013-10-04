@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+    <context:annotation-config/>
+
+
+    <!-- 读取jdbc.properties配置文件 -->
+    <context:property-placeholder location="classpath*:jdbc.properties"/>
+
+    <!-- 配置数据源 -->
+    <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${driverClassName}"/>
+        <property name="jdbcUrl" value="${url}"/>
+        <property name="user" value="${username}"/>
+        <property name="password" value="${password}"/>
+        <!-- 连接池启动时的初始值 -->
+        <property name="initialPoolSize" value="${initialSize}"/>
+        <!-- 连接池的最大值 -->
+        <property name="maxPoolSize" value="${maxActive}"/>
+        <!-- 最大空闲值.当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接慢慢释放一部分，一直减少到maxIdle为止 -->
+        <property name="maxIdleTime" value="${maxIdle}"/>
+    </bean>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <!-- 配置SessionFactory所需的数据源，注入上面定义的dataSource -->
+        <property name="dataSource" ref="datasource"/>
+
+        <!-- mappingResources属性用来列出全部映射文件 -->
+        <property name="mappingResources">
+            <list>
+                <!-- 配置所有PO映射文件 -->
+                <value>mapping.hbm.xml</value>
+            </list>
+        </property>
+
+        <!-- 定义hibernate的SessionFactory的属性 -->
+        <property name="hibernateProperties">
+            <value>
+                hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+                hibernate.hbm2ddl.auto=update
+                hibernate.show_sql=true
+                hibernate.format_sql=true
+                hibernate.cache.use_second_level_cache=true
+                hibernate.cache.use_query_cache=false
+                hibernate.cache.provider_class=org.hibernate.cache.EhCacheProvider
+            </value>
+        </property>
+    </bean>
+
+    <!-- 配置Hibernate的局部事务管理器，使用HibernateTransactionManager类 -->
+    <!-- 该类是PlatformTransactionManager接口对采用Hibernate的特定实现类 -->
+    <bean id="txManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- 采用注解方式配置事务 -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <bean id="hibernateDaoSupport" class="org.springframework.orm.hibernate3.support.HibernateDaoSupport" abstract="true">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="test_stu_dao" class="Student.Daoimpl.StuDaoimpl" parent="hibernateDaoSupport"></bean>
+
+    <bean id="test_cur_dao" class="C.Daoimpl.CourDaoimpl" parent="hibernateDaoSupport"></bean>
+
+    <!--<bean id="test_grd_dao" class="Grade.Daoimpl.GradDaoimpl" parent="hibernateDaoSupport"></bean>-->
+
+    <bean id="studentService" class="Student.ServiceDaoImpl.ServiceImpl " ></bean>
+    <bean id="grdservice" class="Grade.ServiceImpl.GraServiceImpl " ></bean>
+    <bean id="courdao" class="C.Daoimpl.CourDaoimpl" parent="hibernateDaoSupport"/>
+
+    <bean id="grddao" class="Grade.DaoImpl.GradDaoimpl" parent="hibernateDaoSupport"/>
+
+    <bean id="ClassService" class="C.ServiceImpl.ClassService " ></bean>
+
+
+    <bean id="util" class="Student.util.StuUtil " ></bean>
+    <bean id="clautil" class="C.util.ClassUtil " ></bean>
+    <bean id="grdutil" class="Grade.util.GradUtil " ></bean>
+
+
+
+    <!--<bean id="studao" class="student.dao.StuDao" ></bean>-->
+</beans>
